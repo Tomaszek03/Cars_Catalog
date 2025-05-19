@@ -1,0 +1,4 @@
+2025-05-07 10:42:48.630218+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabela "CARS" nie istnieje
+Table "CARS" not found; SQL statement:
+select * from cars [42102-232]

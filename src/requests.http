@@ -1,0 +1,16 @@
+### GET all cars
+GET http://localhost:8080/api/carscatalog
+
+### ADD NEW CAR
+POST http://localhost:8080/api/carscatalog
+Content-Type: application/json
+
+{
+  "brand": "Dodge",
+  "model": "Challenger SRT Hellcat",
+  "yearOfProduction": 2018,
+  "color": "Red",
+  "engine": "V8 6.2L",
+  "horsePower": 717,
+  "price": 300000
+}
