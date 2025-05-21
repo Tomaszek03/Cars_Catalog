@@ -24,15 +24,12 @@ public class CarsCatalogUnitTests {
 
     @Test
     void getAllCars_test() {
-        // Arrange
         Car mockCar = new Car(1, "Dodge", "Challenger SRT Hellcat", 2020,
                 "Lime green", "V8 6.2L", 717, 300000.0);
         when(repository.findAll()).thenReturn(List.of(mockCar));
 
-        // Act
         List<Car> cars = service.getAllCars();
 
-        // Assert
         assertThat(cars)
                 .hasSize(1)
                 .first()
@@ -41,4 +38,53 @@ public class CarsCatalogUnitTests {
                     assertThat(car.getModel()).isEqualTo("Challenger SRT Hellcat");
                 });
     }
+
+    @Test
+    void findCarById_test() {
+        Car mockCar = new Car(1, "Dodge", "Challenger SRT Hellcat", 2020,
+                "Lime green", "V8 6.2L", 717, 300000.0);
+        when(repository.findById(1)).thenReturn(java.util.Optional.of(mockCar));
+
+        var result = service.findCarById(1);
+
+        assertThat(result).isPresent();
+        assertThat(result.get().getModel()).isEqualTo("Challenger SRT Hellcat");
+    }
+
+    @Test
+    void findCarsByBrand_test() {
+        Car car1 = new Car(1, "Lamborghini", "Huracan EVO", 2020,
+                "Yellow", "V10 5.2L", 640, 1300000.0);
+        Car car2 = new Car(2, "Lamborghini", "Aventador SVJ", 2018,
+                "Red", "V12 6.5L", 770, 2900000.0);
+        when(repository.findByBrandIgnoreCase("Lamborghini")).thenReturn(List.of(car1, car2));
+
+        List<Car> cars = service.findCarsByBrand("Lamborghini");
+
+        assertThat(cars).hasSize(2).extracting(Car::getModel).containsExactly("Huracan EVO", "Aventador SVJ");
+
+    }
+
+    @Test
+    void findCarsByYearRange_test() {
+        Car car1 = new Car(1, "Toyota", "Supra MK4", 1998, "White", "2JZ-GE 3.0L", 220, 120000.0);
+        Car car2 = new Car(2, "Nissan", "Skyline R34 GTR", 1999, "Silver", "RB26DETT 2.6L", 280, 140000.0);
+        when(repository.findByYearOfProductionBetween(1995, 2000)).thenReturn(List.of(car1, car2));
+
+        List<Car> result = service.findCarsByYearRange(1995, 2000);
+
+        assertThat(result)
+                .hasSize(2)
+                .extracting(Car::getBrand)
+                .contains("Toyota", "Nissan");
+    }
+
+    @Test
+    void deleteCarById_test() {
+        service.deleteById(5);
+        org.mockito.Mockito.verify(repository).deleteById(5);
+    }
+
+
+
 }
