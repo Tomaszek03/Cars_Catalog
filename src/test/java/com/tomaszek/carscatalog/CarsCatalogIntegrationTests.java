@@ -1,5 +1,7 @@
 package com.tomaszek.carscatalog;
 
+import com.tomaszek.carscatalog.models.Car;
+import com.tomaszek.carscatalog.repositories.CarsCatalogRepository;
 import com.tomaszek.carscatalog.utils.TestLogger;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;

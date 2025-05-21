@@ -1,4 +1,4 @@
-### GET all cars
+### GET ALL CARS
 GET http://localhost:8080/api/carscatalog
 
 ### ADD NEW CAR
@@ -6,11 +6,20 @@ POST http://localhost:8080/api/carscatalog
 Content-Type: application/json
 
 {
-  "brand": "Dodge",
-  "model": "Challenger SRT Hellcat",
-  "yearOfProduction": 2018,
-  "color": "Red",
-  "engine": "V8 6.2L",
-  "horsePower": 717,
-  "price": 300000
+  "brand": "Lamborghini",
+  "model": "Huracan EVO",
+  "yearOfProduction": 2020,
+  "color": "Yellow",
+  "engine": "V10 5.5L",
+  "horsePower": 640,
+  "price": 1300000
 }
+
+### FIND CARS BY BRAND
+GET http://localhost:8080/api/carscatalog/searchByBrand?brand=Dodge
+
+### FIND CARS BY YEAR OF PRODUCTION
+GET http://localhost:8080/api/carscatalog/searchByYear?fromYear=1990&toYear=2003
+
+### DELETE CAR BY ID
+DELETE http://localhost:8080/api/carscatalog/deleteById?id=3

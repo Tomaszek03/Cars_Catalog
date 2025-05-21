@@ -1,23 +1,35 @@
-package com.tomaszek.carscatalog;
+package com.tomaszek.carscatalog.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
+@Table(name = "cars")
 public class Car {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotBlank(message = "Brand cannot be empty")
     private String brand;
+
+    @NotBlank(message = "Model cannot be empty")
     private String model;
+
+    @Positive(message = "Year of production must be greater than 0")
     private int yearOfProduction;
+
+    @NotBlank(message = "Color cannot be empty")
     private String color;
+
+    @NotBlank(message = "Engine cannot be empty")
     private String engine;
+
+    @Positive(message = "Horse Power must be greater than 0")
     private int horsePower;
+
+    @Positive(message = "Price must be greater than 0")
     private Double price;
 
     public Car() {}
