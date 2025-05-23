@@ -4,12 +4,10 @@ import com.tomaszek.carscatalog.exceptions.CarNotFoundException;
 import com.tomaszek.carscatalog.models.Car;
 import com.tomaszek.carscatalog.services.CarsCatalogService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/carscatalog")
@@ -46,6 +44,20 @@ public class AppController {
         List<Car> cars = carsCatalogService.findCarsByYearRange(fromYear, toYear);
         if(cars.isEmpty()) {
             throw new CarNotFoundException("No cars found between years " + fromYear + " and " + toYear);
+        }
+        return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping("/searchByPrice")
+    public ResponseEntity<List<Car>> findCarsByPrice(@RequestParam int fromPrice, @RequestParam int toPrice) {
+        if(fromPrice > toPrice) {
+            int temp = fromPrice;
+            fromPrice = toPrice;
+            toPrice = temp;
+        }
+        List<Car> cars = carsCatalogService.findCarsByPriceRange(fromPrice, toPrice);
+        if(cars.isEmpty()) {
+            throw new CarNotFoundException("No cars found between prices " + fromPrice + " and " + toPrice);
         }
         return ResponseEntity.ok(cars);
     }

@@ -80,6 +80,20 @@ public class CarsCatalogUnitTests {
     }
 
     @Test
+    void findCarsByPriceRange_test() {
+        Car car1 = new Car(1, "Toyota", "Supra MK4", 1998, "White", "2JZ-GE 3.0L", 220, 120000.0);
+        Car car2 = new Car(2, "Nissan", "Skyline R34 GTR", 1999, "Silver", "RB26DETT 2.6L", 280, 140000.0);
+        when(repository.findByPriceBetween(100000, 130000)).thenReturn(List.of(car1));
+
+        List<Car> result = service.findCarsByPriceRange(100000, 130000);
+
+        assertThat(result)
+                .hasSize(1)
+                .extracting(Car::getBrand)
+                .contains("Toyota");
+    }
+
+    @Test
     void deleteCarById_test() {
         service.deleteById(5);
         org.mockito.Mockito.verify(repository).deleteById(5);

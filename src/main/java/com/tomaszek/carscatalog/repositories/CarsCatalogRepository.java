@@ -9,4 +9,6 @@ public interface CarsCatalogRepository extends JpaRepository<Car, Integer> {
     List<Car> findByBrandIgnoreCase(String brand);
 
     List<Car> findByYearOfProductionBetween(int fromYear, int toYear);
+
+    List<Car> findByPriceBetween(int fromPrice, int toPrice);
 }

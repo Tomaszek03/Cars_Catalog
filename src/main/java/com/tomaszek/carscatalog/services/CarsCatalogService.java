@@ -35,6 +35,10 @@ public class CarsCatalogService {
         return carsCatalogRepository.findById(id);
     }
 
+    public List<Car> findCarsByPriceRange(int fromPrice, int toPrice) {
+        return carsCatalogRepository.findByPriceBetween(fromPrice, toPrice);
+    }
+
     public void deleteById(int id) {
         carsCatalogRepository.deleteById(id);
     }

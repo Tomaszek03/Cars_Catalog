@@ -16,10 +16,13 @@ Content-Type: application/json
 }
 
 ### FIND CARS BY BRAND
-GET http://localhost:8080/api/carscatalog/searchByBrand?brand=Dodge
+GET http://localhost:8080/api/carscatalog/searchByBrand?brand=lamborghinI
 
 ### FIND CARS BY YEAR OF PRODUCTION
 GET http://localhost:8080/api/carscatalog/searchByYear?fromYear=1990&toYear=2003
+
+### FIND CARS BY PRICE
+GET http://localhost:8080/api/carscatalog/searchByPrice?fromPrice=1300000&toPrice=1300000
 
 ### DELETE CAR BY ID
 DELETE http://localhost:8080/api/carscatalog/deleteById?id=3
