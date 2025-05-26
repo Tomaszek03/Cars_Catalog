@@ -2,6 +2,7 @@ package com.tomaszek.carscatalog.services;
 
 import com.tomaszek.carscatalog.models.Car;
 import com.tomaszek.carscatalog.repositories.CarsCatalogRepository;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +42,9 @@ public class CarsCatalogService {
 
     public void deleteById(int id) {
         carsCatalogRepository.deleteById(id);
+    }
+
+    public void updateCar(@Valid Car car) {
+        carsCatalogRepository.save(car);
     }
 }

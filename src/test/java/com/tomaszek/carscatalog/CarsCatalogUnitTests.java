@@ -10,6 +10,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
+import java.util.Optional;
+
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -37,6 +39,28 @@ public class CarsCatalogUnitTests {
                     assertThat(car.getBrand()).isEqualTo("Dodge");
                     assertThat(car.getModel()).isEqualTo("Challenger SRT Hellcat");
                 });
+    }
+
+    @Test
+    void updateCar_test() {
+        Car originalCar = new Car(1, "McLaren", "720S", 2020, "Blue", "V8 4.0L", 720, 1000000.0);
+        when(repository.save(originalCar)).thenReturn(originalCar);
+
+        Car savedCar = service.addCar(originalCar);
+        assertThat(savedCar.getColor()).isEqualTo("Blue");
+        assertThat(savedCar.getPrice()).isEqualTo(1000000.0);
+
+        Car updatedCar = new Car(1, "McLaren", "720S", 2020, "Yellow", "V8 4.0L", 720, 1100000.0);
+        when(repository.save(updatedCar)).thenReturn(updatedCar);
+        service.updateCar(updatedCar);
+        org.mockito.Mockito.verify(repository).save(updatedCar);
+
+        when(repository.findById(1)).thenReturn(Optional.of(updatedCar));
+        Optional<Car> result = service.findCarById(1);
+        assertThat(result).isPresent();
+        Car resultCar = result.get();
+        assertThat(resultCar.getColor()).isEqualTo("Yellow");
+        assertThat(resultCar.getPrice()).isEqualTo(1100000.0);
     }
 
     @Test
@@ -83,7 +107,7 @@ public class CarsCatalogUnitTests {
     void findCarsByPriceRange_test() {
         Car car1 = new Car(1, "Toyota", "Supra MK4", 1998, "White", "2JZ-GE 3.0L", 220, 120000.0);
         Car car2 = new Car(2, "Nissan", "Skyline R34 GTR", 1999, "Silver", "RB26DETT 2.6L", 280, 140000.0);
-        when(repository.findByPriceBetween(100000, 130000)).thenReturn(List.of(car1));
+        when(repository.findByPriceBetween(100000.0, 130000.0)).thenReturn(List.of(car1));
 
         List<Car> result = service.findCarsByPriceRange(100000, 130000);
 

@@ -6,13 +6,27 @@ POST http://localhost:8080/api/carscatalog
 Content-Type: application/json
 
 {
-  "brand": "Lamborghini",
-  "model": "Huracan EVO",
+  "brand": "McLaren",
+  "model": "720S",
+  "yearOfProduction": 2020,
+  "color": "Blue",
+  "engine": "V8 4.0L",
+  "horsePower": 720,
+  "price": 1000000
+}
+
+### UPDATE CAR
+PUT http://localhost:8080/api/carscatalog/4
+Content-Type: application/json
+
+{
+  "brand": "McLaren",
+  "model": "720S",
   "yearOfProduction": 2020,
   "color": "Yellow",
-  "engine": "V10 5.2L",
-  "horsePower": 640,
-  "price": 1300000
+  "engine": "V8 4.0L",
+  "horsePower": 720,
+  "price": 1100000
 }
 
 ### FIND CARS BY BRAND

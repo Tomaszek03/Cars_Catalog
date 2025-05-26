@@ -11,10 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/carscatalog")
-public class AppController {
+public class CarsCatalogController {
     private final CarsCatalogService carsCatalogService;
 
-    public AppController(CarsCatalogService carsCatalogService) {
+    public CarsCatalogController(CarsCatalogService carsCatalogService) {
         this.carsCatalogService = carsCatalogService;
     }
 
@@ -28,6 +28,14 @@ public class AppController {
     public ResponseEntity<String> addCar(@Valid @RequestBody Car car) {
         carsCatalogService.addCar(car);
         return ResponseEntity.status(201).body("Car added");
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateCar(@PathVariable int id,  @Valid @RequestBody Car car) {
+        carsCatalogService.findCarById(id).orElseThrow(() -> new CarNotFoundException("No car found with id " + id));
+        car.setId(id);
+        carsCatalogService.updateCar(car);
+        return ResponseEntity.status(201).body("Car with id " + id + " updated");
     }
 
     @GetMapping("/searchByBrand")
@@ -64,7 +72,7 @@ public class AppController {
 
     @DeleteMapping("/deleteById")
     public ResponseEntity<String> deleteById(@RequestParam int id) {
-        Car car =carsCatalogService.findCarById(id).orElseThrow(() -> new CarNotFoundException("No car found with id: " + id));
+        carsCatalogService.findCarById(id).orElseThrow(() -> new CarNotFoundException("No car found with id: " + id));
         carsCatalogService.deleteById(id);
         return ResponseEntity.status(200).body("Car with id " + id + " deleted");
     }
