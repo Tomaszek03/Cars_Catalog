@@ -2,6 +2,15 @@
 
 ## Backend for a car shop web application (catalog of available cars)
 
+### Features
+All of the following operations are performed on the database:
+* Retrieve all cars
+* Update a car's details
+* Find cars by brand
+* Find cars by year range
+* Find cars by price range
+* Delete car
+
 ### Used technologies:
 * Java 17
 * Maven
