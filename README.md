@@ -16,6 +16,7 @@ All of the following operations are performed on the database:
 * Maven
 * Spring Boot
 * H2 Database
+* REST API
 
 ### How to start?
 
