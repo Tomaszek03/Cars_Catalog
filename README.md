@@ -6,6 +6,7 @@
 * Java 17
 * Maven
 * Spring Boot
+* H2 Database
 
 ### How to start?
 
